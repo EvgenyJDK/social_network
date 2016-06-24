@@ -1,53 +1,100 @@
 package org.social_network.models;
 
-import java.util.Set;
+import javax.persistence.*;
 
 /**
- * Created by Админ on 07.06.2016.
+ * Created by Админ on 18.06.2016.
  */
+@Entity
+@Table(name = "message", schema = "socials_db")
 public class Message {
 
-    private int messageId;
-    private String messageBody;
-    private Set<User> usersSenders;
-    private Set<User> usersReceivers;
-    private boolean checkStatus;
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(name = "MESSAGE_ID")
+    private int id;
+
+    @Basic
+    @Column(name = "MESSAGE_BODY")
+    private String message;
+
+    @ManyToOne
+    @JoinColumn(name = "SENDER_ID")
+//    @JoinColumn(name = "USER_ID")
+    private User sender;
+//    private int sender;
+
+    @ManyToOne
+    @JoinColumn(name = "RECEIVER_ID")
+    private User receiver;
+
+    @Basic
+    @Column(name = "CHECK_STATUS")
+    private boolean read;              // boolean Q
 
 
-    public Message() {
-    }
-
-    public Message(int messageId, String messageBody, Set<User> usersSenders, Set<User> usersReceivers, boolean checkStatus) {
-        setMessageId(messageId);
-        setMessageBody(messageBody);
-        setUsersSenders(usersSenders);
-        setUsersReceivers(usersReceivers);
-        setCheckStatus(checkStatus);
-    }
 
 
     @Override
-    public String toString() {
-        return "Message{" +
-                "messageId=" + messageId +
-                ", usersSenders=" + usersSenders +
-                ", checkStatus=" + checkStatus +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Message that = (Message) o;
+
+        if (id != that.id) return false;
+        if (sender != that.sender) return false;
+        if (receiver != that.receiver) return false;
+        if (message != null ? !message.equals(that.message) : that.message != null) return false;
+//        if (read != null ? !read.equals(that.read) : that.read != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+//        result = 31 * result + (message != null ? message.hashCode() : 0);
+//        result = 31 * result + sender;
+//        result = 31 * result + receiver;
+//        result = 31 * result + (read != null ? read.hashCode() : 0);
+        return result;
     }
 
 
-    public int getMessageId() { return messageId; }
-    public void setMessageId(int messageId) { this.messageId = messageId; }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getMessageBody() { return messageBody; }
-    public void setMessageBody(String messageBody) { this.messageBody = messageBody; }
+    public String getMessage() {
+        return message;
+    }
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-    public Set<User> getUsersReceivers() { return usersReceivers; }
-    public void setUsersReceivers(Set<User> usersReceivers) { this.usersReceivers = usersReceivers; }
+    public User getSender() {
+        return sender;
+    }
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
 
-    public Set<User> getUsersSenders() { return usersSenders; }
-    public void setUsersSenders(Set<User> usersSenders) { this.usersSenders = usersSenders; }
+    public User getReceiver() {
+        return receiver;
+    }
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
 
-    public boolean isCheckStatus() { return checkStatus; }
-    public void setCheckStatus(boolean checkStatus) { this.checkStatus = checkStatus;  }
+    public boolean getRead() {
+        return read;
+    }
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+
 }
