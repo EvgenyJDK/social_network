@@ -4,10 +4,6 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
 
-/**
- * Created by Админ on 18.06.2016.
- */
-
 @Entity
 @Table(name = "user", schema = "socials_db")
 public class User {

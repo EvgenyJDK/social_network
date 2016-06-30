@@ -2,9 +2,6 @@ package org.social_network.models;
 
 import javax.persistence.*;
 
-/**
- * Created by Админ on 18.06.2016.
- */
 @Entity
 @Table(name = "message", schema = "socials_db")
 public class Message {
