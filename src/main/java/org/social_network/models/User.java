@@ -2,6 +2,7 @@ package org.social_network.models;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 /**
  * Created by Админ on 18.06.2016.
@@ -38,9 +39,12 @@ public class User {
     @Column(name = "ROLE")
     private String role;
 
-////    @OneToMany(mappedBy = "messages")
-//    @OneToMany(targetEntity = Message.class)
-//    private Set<Message> messages;
+    @OneToMany (mappedBy = "sender")
+    private Set<Message> sendersMessages;
+
+    @OneToMany (mappedBy = "receiver")
+    private Set<Message> receiversMessages;
+
 
     @Override
     public boolean equals(Object o) {
@@ -114,5 +118,12 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public Set<Message> getSendersMessages() { return sendersMessages; }
+    public void setSendersMessages(Set<Message> messages) { this.sendersMessages = messages; }
+
+    public Set<Message> getReceiversMessages() { return receiversMessages; }
+    public void setReceiversMessages(Set<Message> messages2) { this.receiversMessages = messages2; }
+
 
 }
